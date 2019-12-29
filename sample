@@ -1,0 +1,31 @@
+
+
+
+// SET REDIS
+data, err := json.Marshal(result)
+if err != nil {
+  helpers.ERROR(w, http.StatusInternalServerError, err)
+  return
+}
+
+
+err = a.GetRedisClient().Set("postsData", data, 60 * time.Second).Err()
+if err != nil {
+  helpers.ERROR(w, http.StatusInternalServerError, err)
+  return
+}
+
+
+// GET REDIS
+cachedDataJSON, err := a.GetRedisClient().Get("postsData").Result()
+if cachedDataJSON != "" {
+  cachedData := &GetListResponse{}
+  errrrr := json.Unmarshal([]byte(cachedDataJSON), cachedData)
+  if errrrr != nil {
+    helpers.ERROR(w, http.StatusInternalServerError, errrrr)
+  }
+
+  fmt.Println("CACHED DATA", cachedData)
+  helpers.JSON(w, http.StatusOK, cachedData)
+  return
+}

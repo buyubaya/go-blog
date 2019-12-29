@@ -133,6 +133,7 @@ func GetList(a interfaces.IApp) (http.HandlerFunc) {
 			QueryOptions: postsResponse.QueryOptions,
 		}
 
+
 		helpers.JSON(w, http.StatusOK, result)
 	}
 }

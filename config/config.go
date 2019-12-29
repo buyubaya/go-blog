@@ -4,6 +4,7 @@ package config
 type Config struct {
 	DB *DBConfig
 	Firebase *FirebaseConfig
+	Redis *RedisConfig
 }
 
 
@@ -24,6 +25,13 @@ type FirebaseConfig struct {
 }
 
 
+// REDIS
+type RedisConfig struct {
+	Address string
+	Password string
+}
+
+
 func GetConfig() *Config {
 	return &Config {
 		DB: &DBConfig {
@@ -39,5 +47,11 @@ func GetConfig() *Config {
 		Firebase: &FirebaseConfig {
 			ServiceAccountKey: "./firebase/serviceAccountKey.json",
 		},
+
+		Redis: &RedisConfig {
+			Address: "localhost:6379",
+			Password: "",
+		},
+
 	}
 }

@@ -11,12 +11,14 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 	firebaseAdmin "github.com/buyubaya/go-blog/firebase"
+	"github.com/go-redis/redis/v7"
 
 	"github.com/buyubaya/go-blog/config"
 	"github.com/buyubaya/go-blog/models"
 	API "github.com/buyubaya/go-blog/api"
 	UserAPI "github.com/buyubaya/go-blog/api/user"
 	"github.com/buyubaya/go-blog/handlers"
+	redisClient "github.com/buyubaya/go-blog/redisClient"
 )
 
 
@@ -24,6 +26,7 @@ type App struct {
 	DB *gorm.DB
 	Router *mux.Router
 	FirebaseApp *firebaseAdmin.App
+	RedisClient *redis.Client
 }
 
 
@@ -56,6 +59,11 @@ func (a *App) Initialize(config *config.Config) {
 	firebaseApp := &firebaseAdmin.App{}
 	firebaseApp.Initialize(config.Firebase.ServiceAccountKey)
 	a.FirebaseApp = firebaseApp
+
+
+	// REDIS CLIENT
+	redisClient := redisClient.Initialize(config.Redis)
+	a.RedisClient = redisClient
 }
 
 
@@ -66,6 +74,10 @@ func (a *App) GetDB() *gorm.DB {
 
 func (a *App) GetFirebaseApp() *firebaseAdmin.App {
 	return a.FirebaseApp
+}
+
+func (a *App) GetRedisClient() *redis.Client {
+	return a.RedisClient
 }
 
 

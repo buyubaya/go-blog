@@ -9,6 +9,7 @@ require (
 	github.com/codegangsta/envy v0.0.0-20141216192214-4b78388c8ce4 // indirect
 	github.com/codegangsta/gin v0.0.0-20171026143024-cafe2ce98974 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-redis/redis/v7 v7.0.0-beta.4
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/mux v1.7.3
 	github.com/howeyc/fsnotify v0.9.0 // indirect
